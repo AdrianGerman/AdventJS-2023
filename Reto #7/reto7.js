@@ -31,3 +31,37 @@ function drawGift(size, symbol) {
 
   return response;
 }
+
+//Ejemplo de uso
+const test1 = drawGift(4, "+");
+console.log(test1);
+
+/*
+   ####
+  #++##
+ #++#+#
+####++#
+#++#+#
+#++##
+####
+*/
+
+const test2 = drawGift(5, "*");
+console.log(test2);
+/*
+    #####
+   #***##
+  #***#*#
+ #***#**#
+#####***#
+#***#**#
+#***#*#
+#***##
+#####
+*/
+
+const test3 = drawGift(1, "^");
+console.log(test3);
+/*
+#
+*/
