@@ -1,6 +1,4 @@
-# AdventJS-2023
-
-## Reto #1 ¡Primer regalo repetido!
+# Reto #1 ¡Primer regalo repetido
 
 En la fábrica de juguetes del Polo Norte, cada juguete tiene un número de identificación único.
 
