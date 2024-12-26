@@ -1,3 +1,4 @@
+// --- code
 function moveTrain(board, mov) {
   const moves = { L: [0, -1], R: [0, 1], U: [-1, 0], D: [1, 0] }
   let headRow, headCol
@@ -25,3 +26,19 @@ function moveTrain(board, mov) {
   if (nextCell === "*") return "eat"
   return "none"
 }
+// ---
+
+// example
+const board = ["·····", "*····", "@····", "o····", "o····"]
+
+console.log(moveTrain(board, "U"))
+// ➞ 'eat'
+
+console.log(moveTrain(board, "D"))
+// ➞ 'crash'
+
+console.log(moveTrain(board, "L"))
+// ➞ 'crash'
+
+console.log(moveTrain(board, "R"))
+// ➞ 'none'
