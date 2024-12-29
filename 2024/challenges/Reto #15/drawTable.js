@@ -1,42 +1,28 @@
 // --- code
 function drawTable(data) {
-  const columns = Object.keys(data[0])
-  const headers = columns.map(
-    (col) => col.charAt(0).toUpperCase() + col.slice(1)
-  )
+  let border = "+"
 
-  const columnWidths = columns.map((col) =>
-    Math.max(...data.map((row) => String(row[col]).length), col.length)
-  )
+  const columns = Object.keys(data[0]).map((key) => [
+    key[0].toUpperCase() + key.slice(1),
+    ...data.map((row) => row[key].toString())
+  ])
 
-  const createLine = () => {
-    return (
-      "+" + columnWidths.map((width) => "-".repeat(width + 2)).join("+") + "+"
-    )
+  const tableRows = Array(columns[0].length).fill("|")
+
+  for (const column of columns) {
+    const maxCellWidth = Math.max(...column.map((cell) => cell.length))
+
+    let index = 0
+    for (const cell of column) {
+      tableRows[index++] += ` ${cell.padEnd(maxCellWidth)} |`
+    }
+
+    border += "-".repeat(maxCellWidth + 2) + "+"
   }
 
-  const createRow = (row) => {
-    return (
-      "|" +
-      columns
-        .map(
-          (col, index) => ` ${String(row[col]).padEnd(columnWidths[index])} `
-        )
-        .join("|") +
-      "|"
-    )
-  }
+  const [header, ...body] = tableRows
 
-  const headerRow =
-    "|" +
-    headers
-      .map((header, index) => ` ${header.padEnd(columnWidths[index])} `)
-      .join("|") +
-    "|"
-  const separator = createLine()
-  const rows = data.map(createRow)
-
-  return [separator, headerRow, separator, ...rows, separator].join("\n")
+  return [border, header, border, ...body, border].join("\n")
 }
 // ---
 

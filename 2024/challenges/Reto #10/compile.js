@@ -3,25 +3,23 @@ function compile(instructions) {
   const registers = {}
   let pointer = 0
 
-  const getValue = (x) => (isNaN(x) ? registers[x] ?? 0 : parseInt(x, 10))
+  const getValue = (operand) =>
+    isNaN(operand) ? registers[operand] || 0 : +operand
 
-  const commands = instructions.map((instruction) => {
-    const [command, arg1, arg2] = instruction.split(" ")
+  while (pointer < instructions.length) {
+    const [command, x, y] = instructions[pointer].split(" ")
 
-    const operations = {
-      MOV: () => (registers[arg2] = getValue(arg1)),
-      INC: () => (registers[arg1] = getValue(arg1) + 1),
-      DEC: () => (registers[arg1] = getValue(arg1) - 1),
-      JMP: () => {
-        if (getValue(arg1) === 0) pointer = parseInt(arg2, 10) - 1
-      }
+    if (command === "MOV") {
+      registers[y] = getValue(x)
+    } else if (command === "INC") {
+      registers[x] = (registers[x] || 0) + 1
+    } else if (command === "DEC") {
+      registers[x] = (registers[x] || 0) - 1
+    } else if (command === "JMP" && getValue(x) === 0) {
+      pointer = +y
+      continue
     }
 
-    return operations[command]
-  })
-
-  while (pointer < commands.length) {
-    commands[pointer]()
     pointer++
   }
 
